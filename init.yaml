@@ -1,0 +1,36 @@
+apiVersion: kubeadm.k8s.io/v1beta3
+kind: ClusterConfiguration
+kubernetesVersion: v1.30.8
+networking:
+  podSubnet: 10.244.0.0/16
+apiServer:
+  extraArgs:
+    bind-address: "11.11.11.3333"
+    advertise-address: "11.11.11.3333"
+  certSANs:
+    - "11.11.11.3333"
+    - "aigc.apiserver.local"
+controllerManager:
+  extraArgs:
+    bind-address: "11.11.11.3333"
+scheduler:
+  extraArgs:
+    bind-address: "11.11.11.3333"
+etcd:
+  local:
+    extraArgs:
+      listen-peer-urls: "https://11.11.11.3333:2380"
+      listen-client-urls: "https://11.11.11.3333:2379"
+      advertise-client-urls: "https://11.11.11.3333:2379"
+      initial-advertise-peer-urls: "https://11.11.11.3333:2380"
+    serverCertSANs:
+      - "11.11.11.3333"
+    peerCertSANs:
+      - "11.11.11.3333"
+---
+apiVersion: kubeadm.k8s.io/v1beta3
+kind: InitConfiguration
+localAPIEndpoint:
+  advertiseAddress: "11.11.11.3333"
+  bindPort: 6443
+
