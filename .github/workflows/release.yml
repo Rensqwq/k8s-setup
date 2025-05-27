@@ -1,0 +1,44 @@
+name: Auto Release on Push
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-release:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Generate Version Number
+      id: version
+      run: |
+        # 生成日期+运行号的版本格式 (示例: v20240322.1)
+        echo "VERSION=v$(date +%Y%m%d).${GITHUB_RUN_NUMBER}" >> $GITHUB_ENV
+
+    - name: Create Release Package
+      run: |
+        # 打包所有文件（排除.git目录）
+        zip -r release.zip . -x '*.git*'
+
+    - name: Create GitHub Release
+      id: create-release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ env.VERSION }}
+        release_name: ${{ env.VERSION }}
+        draft: false
+        prerelease: false
+
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create-release.outputs.upload_url }}
+        asset_path: ./release.zip
+        asset_name: release-${{ env.VERSION }}.zip
+        asset_content_type: application/zip
