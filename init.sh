@@ -9,7 +9,7 @@ echo "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIG0V0DslMyXVs8+VTXfkjw8bei8xaVvPWTlZek
 # systemctl start startup-commands.service
 # systemctl enable startup-commands.service
 
-kubeadm init --pod-network-cidr=10.244.0.0/16 --kubernetes-version=v1.30.8 --image-repository='harbor.dev.tiusolution.com/google_containers'
+kubeadm init --pod-network-cidr=10.244.0.0/16 --kubernetes-version=v1.30.8 --image-repository='harbor.tiusolution.com/google_containers'
 
 #sleep 10s
 
