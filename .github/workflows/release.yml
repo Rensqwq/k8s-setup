@@ -20,7 +20,9 @@ jobs:
     - name: Create Release Package
       run: |
         # 打包所有文件（排除.git目录）
-        zip -r release.zip . -x '*.git*'
+        mkdir -p install
+        rsync -a --exclude='.git' --exclude='install' . install/
+        zip -r release.zip install/
 
     - name: Create GitHub Release
       id: create-release
