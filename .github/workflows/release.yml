@@ -44,3 +44,17 @@ jobs:
         asset_path: ./release.zip
         asset_name: k8s-setup-${{ env.VERSION }}.zip
         asset_content_type: application/zip
+
+    - name: Install MinIO Client
+      run: |
+        wget https://dl.min.io/client/mc/release/linux-amd64/mc
+        chmod +x mc
+        sudo mv mc /usr/local/bin/
+
+    - name: Configure MinIO Host
+      run: |
+        mc config host add minio ${{ secrets.MINIO_URL }} ${{ secrets.MINIO_ACCESS_KEY }} ${{ secrets.MINIO_SECRET_KEY }} --api S3v4
+
+    - name: Upload to MinIO
+      run: |
+        mc cp release.zip minio/k8s/release.zip
