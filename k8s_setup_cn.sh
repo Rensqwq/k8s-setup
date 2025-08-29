@@ -53,6 +53,7 @@ cp -f config.toml /etc/containerd/config.toml
 # curl -L https://s3.frp.tiusolution.com/k8s/packages/containerd.service -o /etc/systemd/system/containerd.service
 cp containerd.service /etc/systemd/system/containerd.service
 systemctl daemon-reload
+systemctl restart containerd
 systemctl enable --now containerd
 # systemctl status containerd
 
