@@ -22,7 +22,7 @@ jobs:
         # 打包所有文件（排除.git目录）
         mkdir -p install
         rsync -a --exclude='.git' --exclude='install' . install/
-        zip -r release.zip install/
+        tar czf release.tar.gz install/
 
     - name: Create GitHub Release
       id: create-release
@@ -41,7 +41,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create-release.outputs.upload_url }}
-        asset_path: ./release.zip
+        asset_path: ./release.tar.gz
         asset_name: k8s-setup-${{ env.VERSION }}.zip
         asset_content_type: application/zip
 
@@ -57,4 +57,4 @@ jobs:
 
     - name: Upload to MinIO
       run: |
-        mc cp release.zip minio/k8s/release.zip
+        mc cp release.tar.gz minio/k8s/release.tar.gz
