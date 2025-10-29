@@ -47,13 +47,13 @@ jobs:
 
     - name: Install MinIO Client
       run: |
-        wget https://dl.min.io/client/mc/release/linux-amd64/mc
+        wget -O mc https://dl.min.io/client/mc/release/linux-amd64/archive/mc.RELEASE.2025-04-08T15-39-49Z
         chmod +x mc
         sudo mv mc /usr/local/bin/
 
     - name: Configure MinIO Host
       run: |
-        mc alias set minio ${{ secrets.MINIO_URL }} ${{ secrets.MINIO_ACCESS_KEY }} ${{ secrets.MINIO_SECRET_KEY }}
+        mc config host add minio ${{ secrets.MINIO_URL }} ${{ secrets.MINIO_ACCESS_KEY }} ${{ secrets.MINIO_SECRET_KEY }}
 
     - name: Upload to MinIO
       run: |
