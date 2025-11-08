@@ -147,6 +147,12 @@ echo "* soft nproc 65536" >> /etc/security/limits.conf
 echo "* hard nproc 65536" >> /etc/security/limits.conf
 echo "* soft memlock unlimited" >> /etc/security/limits.conf
 echo "* hard memlock unlimited" >> /etc/security/limits.conf
+echo "root soft nofile 1048576" >> /etc/security/limits.conf
+echo "root hard nofile 1048576" >> /etc/security/limits.conf
+echo "root soft nproc 65536" >> /etc/security/limits.conf
+echo "root hard nproc 65536" >> /etc/security/limits.conf
+echo "root soft memlock unlimited" >> /etc/security/limits.conf
+echo "root hard memlock unlimited" >> /etc/security/limits.conf
 
 sed -r -i  "s@#{0,}?\* soft nofile ?([0-9]{1,})@\* soft nofile 1048576@g" /etc/security/limits.conf
 sed -r -i  "s@#{0,}?\* hard nofile ?([0-9]{1,})@\* hard nofile 1048576@g" /etc/security/limits.conf
@@ -154,6 +160,12 @@ sed -r -i  "s@#{0,}?\* soft nproc ?([0-9]{1,})@\* soft nproc 65536@g" /etc/secur
 sed -r -i  "s@#{0,}?\* hard nproc ?([0-9]{1,})@\* hard nproc 65536@g" /etc/security/limits.conf
 sed -r -i  "s@#{0,}?\* soft memlock ?([0-9]{1,}([TGKM]B){0,1}|unlimited)@\* soft memlock unlimited@g" /etc/security/limits.conf
 sed -r -i  "s@#{0,}?\* hard memlock ?([0-9]{1,}([TGKM]B){0,1}|unlimited)@\* hard memlock unlimited@g" /etc/security/limits.conf
+sed -r -i "s@#{0,}?root soft nofile ?([0-9]{1,})@root soft nofile 1048576@g" /etc/security/limits.conf
+sed -r -i "s@#{0,}?root hard nofile ?([0-9]{1,})@root hard nofile 1048576@g" /etc/security/limits.conf
+sed -r -i "s@#{0,}?root soft nproc ?([0-9]{1,})@root soft nproc 65536@g" /etc/security/limits.conf
+sed -r -i "s@#{0,}?root hard nproc ?([0-9]{1,})@root hard nproc 65536@g" /etc/security/limits.conf
+sed -r -i "s@#{0,}?root soft memlock ?([0-9]{1,}([TGKM]B){0,1}|unlimited)@root soft memlock unlimited@g" /etc/security/limits.conf
+sed -r -i "s@#{0,}?root hard memlock ?([0-9]{1,}([TGKM]B){0,1}|unlimited)@root hard memlock unlimited@g" /etc/security/limits.conf
 
 tmpfile="$$.tmp"
 awk ' !x[$0]++{print > "'$tmpfile'"}' /etc/security/limits.conf
