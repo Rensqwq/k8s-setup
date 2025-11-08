@@ -183,6 +183,7 @@ if systemctl is-active ufw --quiet; then
   systemctl disable ufw 1>/dev/null 2>/dev/null
 fi
 
+sysctl --system
 # wget https://s3.frp.tiusolution.com/k8s/packages/containerd-1.7.20-linux-amd64.tar.gz
 tar Cxzvf /usr/local containerd-1.7.24-linux-amd64.tar.gz
 # wget https://s3.frp.tiusolution.com/k8s/packages/runc.amd64
