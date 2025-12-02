@@ -54,6 +54,7 @@ jobs:
     - name: Configure MinIO Host
       run: |
         mc config host add minio ${{ secrets.MINIO_URL }} ${{ secrets.MINIO_ACCESS_KEY }} ${{ secrets.MINIO_SECRET_KEY }}
+        cat ~/.mc/config.json
 
     - name: Upload to MinIO
       run: |
