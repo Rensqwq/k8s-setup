@@ -44,7 +44,7 @@ version = 2
 
   [plugins."io.containerd.grpc.v1.cri"]
     cdi_spec_dirs = ["/etc/cdi", "/var/run/cdi"]
-    device_ownership_from_security_context = false
+    device_ownership_from_security_context = true
     disable_apparmor = false
     disable_cgroup = false
     disable_hugetlb_controller = true
