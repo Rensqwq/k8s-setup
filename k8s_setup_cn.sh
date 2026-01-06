@@ -171,6 +171,10 @@ tmpfile="$$.tmp"
 awk ' !x[$0]++{print > "'$tmpfile'"}' /etc/security/limits.conf
 mv $tmpfile /etc/security/limits.conf
 
+# set systemctl default max lock memory 
+sed -i 's/^#DefaultLimitMEMLOCK=.*/DefaultLimitMEMLOCK=8388608/' /etc/systemd/system.conf
+systemctl daemon-reexec
+
 
 # ------------------------ 6. Firewall Configurations ---------------------------
 
