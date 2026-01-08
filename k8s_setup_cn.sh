@@ -19,6 +19,8 @@ fi
 
 # ------------------------ 2. System Module Settings && IPTables and Connection Tracking ----------------------------
 
+timedatectl set-timezone Asia/Shanghai
+
 modinfo br_netfilter > /dev/null 2>&1
 if [ $? -eq 0 ]; then
    modprobe br_netfilter
