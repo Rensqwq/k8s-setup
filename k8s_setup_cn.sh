@@ -234,7 +234,8 @@ systemctl enable --now containerd
 # wget https://s3.frp.tiusolution.com/k8s/packages/kubelet
 dpkg -i deb/*.deb
 
-echo 'runtime-endpoint: unix:///run/containerd/containerd.sock' > /etc/crictl.yaml
+# echo 'runtime-endpoint: unix:///run/containerd/containerd.sock' > /etc/crictl.yaml
+crictl config --set runtime-endpoint=unix:///run/containerd/containerd.sock
 echo 'alias k="kubectl"' >> /root/.bashrc
 # wget https://s3.frp.tiusolution.com/k8s/packages/kubelet.service
 #cp kubelet.service /lib/systemd/system/kubelet.service
