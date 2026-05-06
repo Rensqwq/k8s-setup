@@ -232,6 +232,8 @@ systemctl enable --now containerd
 # wget https://s3.frp.tiusolution.com/k8s/packages/kubeadm
 # wget https://s3.frp.tiusolution.com/k8s/packages/kubectl
 # wget https://s3.frp.tiusolution.com/k8s/packages/kubelet
+
+apt-get remove systemd-timesyncd -y
 dpkg -i deb/*.deb
 
 # echo 'runtime-endpoint: unix:///run/containerd/containerd.sock' > /etc/crictl.yaml
